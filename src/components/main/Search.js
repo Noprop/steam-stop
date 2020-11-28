@@ -1,13 +1,13 @@
 import { Component } from 'react';
 
-class Banner extends Component {
+class Search extends Component {
   render() {
     return (
       <div>
-        <h1>Keyboards.</h1>
+        <input type="text"/>
       </div>
     )
   }
 }
 
-export default Banner;
+export default Search;

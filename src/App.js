@@ -27,11 +27,24 @@ class App extends Component {
 
     dbRef.on('value', (data) => {
       const firebaseDataObj = data.val();
-      if (timeNow > (firebaseDataObj.time + 8400000)) { // CURRENTLY SET TO 2.4 HOURS
+      if (timeNow > (firebaseDataObj.time + 10000)) { // CURRENTLY SET TO 2.4 HOURS: 8400000
         dbRef.set({
           time: timeNow
         })
         console.log('updated');
+        axios({
+          method: 'GET',
+          url: 'https://cors-anywhere.herokuapp.com/https://steamspy.com/api.php?request=top100in2weeks',
+          responseType: 'json'
+        }).then(res => {
+          // console.log(res.data);
+          const dataObject = res.data;
+          for (const item in dataObject) {
+            console.log(dataObject[item]);
+          }
+        }).catch(err => {
+          console.log(err);
+        })
       }
     })
   }

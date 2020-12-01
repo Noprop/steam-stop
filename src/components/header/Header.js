@@ -7,8 +7,10 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <Navigation />
-        <Carts />
+        <nav>
+          <Navigation />
+          <Carts />
+        </nav>
         <Banner />
       </header>
     )

@@ -1,16 +1,86 @@
+/* * {
+  margin: 0;
+  padding: 0;
+} */
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Rubik", sans-serif;
+  line-height: 1.4;
+  font-size: 2rem;
+}
+/* header,
+section {
+  min-height: 100vh;
+}
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+fieldset {
+  border: 0;
+}
+h2 {
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+} */
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  padding-right: 20px;
+}
+
+
+.navigation {
+  display: flex;
+
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+.banner {
+  min-height: 200px;
+  background-color: goldenrod;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.main {
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+}
+.filters {
+  /* background-color: red; */
+  width: calc(25% - 10px);
+}
+.content {
+  width: calc(75% - 10px)
+}
+.gamesOutput {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+}
+.item {
+  background-color: #eeee;
+  
+}
+
+
+
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -24,15 +94,4 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

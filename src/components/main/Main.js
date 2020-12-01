@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import Search from './Search';
-import Content from './Content';
+import Content from './Content.js';
 
 class Main extends Component {
   render() {

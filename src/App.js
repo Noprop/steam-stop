@@ -25,9 +25,74 @@ class App extends Component {
 
   componentDidMount() {
     const dbRef = firebase.database().ref();
-    // const gameListRef = dbRef.child('gameList/');
-    // let test = gameListRef.child("-MNMI5bz8mUYuEkGpSRS");
-    // test.on('value', snapshot => {
+    const gameListRef = dbRef.child('gameList/');
+    let test = gameListRef.child("-MNMI5bz8mUYuEkGpSRS");
+
+
+    // code for converting strings into numbers where needed
+    // and converting owners string into a number
+    gameListRef.once('value', snapshot => {
+      const dataObj = snapshot.val();
+      for (const dataKey in dataObj) {
+        // console.log(dataObj[dataKey]);
+        const gameRef = gameListRef.child(dataKey);
+        const game = dataObj[dataKey];
+
+        // changes discount value from string to number 
+        if (typeof game.discount === 'string') {
+          const gameDiscount = parseInt(game.discount);
+          gameRef.update({
+            discount: gameDiscount
+          })
+        }
+
+        // changes price from string to number
+        if (typeof game.price === 'string') {
+          const gamePrice = parseInt(game.price);
+          gameRef.update({
+            price: gamePrice
+          })
+        }
+
+        // averages owner value and converts to number
+        if (typeof game.owners === 'string') {
+          const oldOwners = (game.owners).split(" .. ");
+          const owners1 = oldOwners[0].replace(/,/g, '');
+          const owners2 = oldOwners[1].replace(/,/g, '');
+          const newOwners = (parseInt(owners1) + parseInt(owners2)) / 2;
+
+          gameRef.update({
+            owners: newOwners
+          })
+        }
+      }
+    }) 
+    
+    // testing to convert owners string to numbers
+    // test.once('value', snapshot => {
+    //   const dataTest = snapshot.val();
+    //   const oldOwners = (dataTest.owners).split(" .. ");
+    //   const owners1 = oldOwners[0].replace(/,/g, '');
+    //   const owners2 = oldOwners[1].replace(/,/g, '');
+    //   const newOwners = (parseInt(owners1) + parseInt(owners2)) / 2;
+    //   console.log(newOwners);
+
+    //   test.update({
+    //     owners: newOwners
+    //   })
+    // })
+    
+    // testing to add wishlist for one game
+    // test.once('value', snapshot => {
+    //   const dataTest = snapshot.val();
+    //   if(dataTest.onWishlist === undefined) {
+    //     test.update({
+    //       "onWishlist": false
+    //     })
+    //   }
+    // })
+    // testing to add header image for one game
+    // test.once('value', snapshot => {
     //   const dataForTest = snapshot.val();
     //   // console.log(dataForTest);
     //   if (!dataForTest.header_img) {
@@ -79,6 +144,20 @@ class App extends Component {
     //     }
     //   }
     // })
+    // this is the code to init all games with onWishlist: false
+    // gameListRef.once('value', snapshot => {
+    //   const data = snapshot.val();
+    //   for (const dbKey in data) {
+    //     // console.log(data[dbKey]);
+    //     if (data[dbKey].onWishlist === undefined) {
+    //       console.log("we're in");
+    //       const gameRef = gameListRef.child(dbKey);
+    //       gameRef.update({
+    //         "onWishlist": false
+    //       })
+    //     }
+    //   }
+    // })
     
     // console.log(test);
     // const gameListRef = firebase.database().ref('gameList/').limitToFirst(10);
@@ -108,16 +187,23 @@ class App extends Component {
     //   // console.log('state value:', this.state.games);
     // })
 
-    dbRef.on('value', (data) => {
+    dbRef.once('value', (data) => {
       const firebaseDataObj = data.val();
-      if (timeNow > (firebaseDataObj.time + 3000000)) { // CURRENTLY SET TO 2.4 HOURS: 8400000
+
+      if (timeNow > (firebaseDataObj.time + 3000000)) { // this is 24 hours: 84 000 000
         dbRef.update({
           time: timeNow
         })
         console.log('updated');
-        // gameListRef.set({
+
+        // this clears the database of games please be careful
+        // gameListRef.set({ 
         //   gameList: 0
-        // })
+        // }) 
+
+        
+        
+
 
         // for (const item in dataObject) {
         //   gameListRef.push(dataObject[item]);
@@ -167,7 +253,7 @@ class App extends Component {
       <div className="App">
         <img src={this.state.imageTest} alt=""/>
         <Header /> 
-        <Main />
+        {/* <Main /> */}
         <Footer />
       </div>
     );

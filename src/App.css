@@ -53,27 +53,32 @@ nav {
   align-items: center;
   margin-bottom: 30px;
 }
-
-.main {
+/* images are 460 x 215 base size */
+.main { 
   display: flex;
   width: 95%;
   margin: 0 auto;
+  flex-direction: column;
 }
 /* .filters {
-  
   width: calc(25% - 10px);
 }
 .content {
   width: calc(75% - 10px)
 } */
 .gamesOutput {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 .item {
   background-color: #eeee;
-
+  max-width: 460px;
+  width: calc((100% / 3) - 20px);
+  margin-bottom: 20px;
+}
+.item img {
+  max-width: 100%;
 }
 
 

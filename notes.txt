@@ -1,0 +1,2 @@
+may not need to unshift array in the content component. (database had an extra value that I think
+I was accounting for)

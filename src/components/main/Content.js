@@ -19,18 +19,17 @@ class Content extends Component {
       let usefulGames = []
       snapshot.forEach((child) => {
         const val = child.val();
-        if (val.price != 0) {
+        if (val.price !== "0") {
           usefulGames.push(child.val());
-        }
+        } 
       })
-      usefulGames.shift();
       this.setState({
         games: usefulGames
       })
       this.setState({
         outputGamesArray: usefulGames.slice(0, 9)
       })
-      console.log(this.state);
+      // console.log(this.state);
     });
   }
 
@@ -48,7 +47,9 @@ class Content extends Component {
   render() {
     let gamesArray = [];
     for (let gameId in this.props.games) {
+      // console.log(this.props.games[gameId].name);
       gamesArray.push(this.props.games[gameId]);
+      
     }
     
     return (

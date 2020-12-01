@@ -59,13 +59,13 @@ nav {
   width: 95%;
   margin: 0 auto;
 }
-.filters {
-  /* background-color: red; */
+/* .filters {
+  
   width: calc(25% - 10px);
 }
 .content {
   width: calc(75% - 10px)
-}
+} */
 .gamesOutput {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -73,7 +73,7 @@ nav {
 }
 .item {
   background-color: #eeee;
-  
+
 }
 
 

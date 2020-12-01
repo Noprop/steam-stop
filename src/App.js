@@ -4,7 +4,7 @@ import firebase from './firebase';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { faList, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-// import axios from 'axios';
+import axios from 'axios';
 
 // Components
 import Header from './components/header/Header';
@@ -17,7 +17,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      games: null
+      games: null,
+      imageTest: 0
     }
   }
 
@@ -25,6 +26,19 @@ class App extends Component {
     const dbRef = firebase.database().ref();
     // const gameListRef = firebase.database().ref('gameList/');
     // const gameListRef = firebase.database().ref('gameList/').limitToFirst(10);
+
+    axios({
+      method: 'get',
+      url: 'https://steamcdn-a.akamaihd.net/steam/apps/230410/header.jpg?t=1605833758',
+      responseType: 'json'
+    }).then(res => {
+      console.log(res.config.url);
+      this.setState({
+        imageTest: res.config.url
+      })
+    }).catch(err => {
+      console.log(err);
+    })
 
     const timeNow = Date.now();
 
@@ -80,9 +94,10 @@ class App extends Component {
     // console.log('state value:', this.state.games);
     return (
       <div className="App">
-        <Header /> 
+        <img src={this.state.imageTest} alt=""/>
+        {/* <Header /> 
         <Main />
-        <Footer />
+        <Footer /> */}
       </div>
     );
   }

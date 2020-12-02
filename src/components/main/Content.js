@@ -51,18 +51,6 @@ class Content extends Component {
     })
   }
 
-  addToWishlist = (dbKey) => {
-    const gameRef = firebase.database().ref('gameList/').child(dbKey);
-    gameRef.once('value', snapshot => {
-      const dataVal = snapshot.val();
-      const onWishlist = dataVal.onWishlist;
-      console.log(onWishlist);
-      gameRef.update({
-        onWishlist: !onWishlist
-      })
-    })
-  }
-
   render() {
     return (
       <div className="content">
@@ -70,7 +58,7 @@ class Content extends Component {
           {
             this.state.outputGamesArray.map(game => {
               return (
-                <Item key={game[1].appid} game={game[1]} dbKey={game[0]} addToWishlist={this.addToWishlist} />
+                <Item key={game[1].appid} game={game[1]} dbKey={game[0]} addToWishlist={this.props.addToWishlist} />
               ) 
             })
           }

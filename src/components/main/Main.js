@@ -7,7 +7,7 @@ class Main extends Component {
     return (
       <section className="main">
         <Search />
-        <Content />
+        <Content addToWishlist={this.props.addToWishlist}/>
       </section>
     )
   }

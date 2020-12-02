@@ -19,12 +19,23 @@ class App extends Component {
     super();
     this.state = {
       games: null,
-      imageTest: 0
+      wishlist: []
     }
   }
 
   componentDidMount() {
     const dbRef = firebase.database().ref();
+    // const wishlistRef = firebase.database().ref('wishlist');
+    // const rere = "reeeeee"
+    // const test = {
+    //   [rere]: "test"
+    // }
+    // wishlistRef.update(test);
+
+
+    // dbRef.update({
+    //   wishlist: {}
+    // })
     // const gameListRef = dbRef.child('gameList/');
     // let test = gameListRef.child("-MNMI5bz8mUYuEkGpSRS");
 
@@ -144,6 +155,25 @@ class App extends Component {
     //     }
     //   }
     // })
+
+    // giving all games in the database a logo!!
+    // gameListRef.once('value', snapshot => {
+    //   const data = snapshot.val();
+    //   for (const dbKey in data) {
+    //     // console.log(data[dbKey]);
+    //     if (!data[dbKey].logo_img) {
+    //       console.log("we're in");
+    //       const appId = data[dbKey].appid;
+    //       const gameRef = gameListRef.child(dbKey);
+          
+    //       gameRef.update({
+    //         "logo_img": `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/logo.png`
+    //       })
+    //     }
+    //   }
+    // })
+
+
     // this is the code to init all games with onWishlist: false
     // gameListRef.once('value', snapshot => {
     //   const data = snapshot.val();
@@ -247,13 +277,55 @@ class App extends Component {
     })
   }
 
+  addToWishlist = (dbKey) => {
+    const wishlistRef = firebase.database().ref('wishlist');
+    const gameRef = firebase.database().ref('gameList/').child(dbKey); // find the game
+    gameRef.once('value', snapshot => {
+      const dataVal = snapshot.val(); // find the data object for the game
+      const onWishlist = dataVal.onWishlist; // find the onWishlist value
+      // console.log(onWishlist);
+      if (onWishlist === false) {
+        // const wishlistDisplay = [];
+        // wishlistDisplay.push(dataVal.name);
+        // wishlistDisplay.push(dataVal.logo_img);
+        // wishlistDisplay.push([
+        //   dataVal.initialprice,
+        //   dataVal.price,
+        //   dataVal.discount
+        // ]);
+
+        const wishlistObj = {
+          [dbKey]: dbKey
+        }
+        wishlistRef.update(wishlistObj);
+        
+        // const wishlistState = this.state.wishlist;
+        // wishlistState.push(dbKey);
+        // this.setState({
+        //   wishlist: wishlistState
+        // })
+        gameRef.update({
+          onWishlist: true
+        })
+        // console.log();
+      } else {
+        console.log('yo homie u already clicked it')
+      }
+    })
+  }
+
   render() {
+    // console.log(this.state.wishlist); wishlist={this.state.wishlist}
     // console.log('state value:', this.state.games);
     return (
       <div className="App">
-        <img src={this.state.imageTest} alt=""/>
         <Header /> 
-        <Main />
+        {/* {
+          this.state.wishlist.length === 0
+            ? null
+            : <Header wishlist={this.state.wishlist} />
+        } */}
+        <Main addToWishlist={this.addToWishlist} />
         <Footer />
       </div>
     );

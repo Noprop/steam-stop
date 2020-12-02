@@ -1,13 +1,13 @@
-const Item = (props) => {
-  const { name, owners, price, header_img } = props.game;
-  const game = props.game;
+const Item = ({ game, dbKey, addToWishlist }) => {
+  const { name, owners, price, header_img } = game;
+  // console.log(dbKey);
   return (
     <div className="item">
       <img src={header_img} alt="testing"/>
       <p>{name}</p>
       <p>{owners} owners</p>
       <p>{price / 100} in US dollars</p>
-      <button onClick={props.addToWishlist}>Click MEEE</button>
+      <button onClick={() => addToWishlist(dbKey)}>Click MEEE</button>
     </div>
   )
 }

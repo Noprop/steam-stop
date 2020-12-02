@@ -25,48 +25,48 @@ class App extends Component {
 
   componentDidMount() {
     const dbRef = firebase.database().ref();
-    const gameListRef = dbRef.child('gameList/');
-    let test = gameListRef.child("-MNMI5bz8mUYuEkGpSRS");
+    // const gameListRef = dbRef.child('gameList/');
+    // let test = gameListRef.child("-MNMI5bz8mUYuEkGpSRS");
 
 
     // code for converting strings into numbers where needed
     // and converting owners string into a number
-    gameListRef.once('value', snapshot => {
-      const dataObj = snapshot.val();
-      for (const dataKey in dataObj) {
-        // console.log(dataObj[dataKey]);
-        const gameRef = gameListRef.child(dataKey);
-        const game = dataObj[dataKey];
+    // gameListRef.once('value', snapshot => {
+    //   const dataObj = snapshot.val();
+    //   for (const dataKey in dataObj) {
+    //     // console.log(dataObj[dataKey]);
+    //     const gameRef = gameListRef.child(dataKey);
+    //     const game = dataObj[dataKey];
 
-        // changes discount value from string to number 
-        if (typeof game.discount === 'string') {
-          const gameDiscount = parseInt(game.discount);
-          gameRef.update({
-            discount: gameDiscount
-          })
-        }
+    //     // changes discount value from string to number 
+    //     if (typeof game.discount === 'string') {
+    //       const gameDiscount = parseInt(game.discount);
+    //       gameRef.update({
+    //         discount: gameDiscount
+    //       })
+    //     }
 
-        // changes price from string to number
-        if (typeof game.price === 'string') {
-          const gamePrice = parseInt(game.price);
-          gameRef.update({
-            price: gamePrice
-          })
-        }
+    //     // changes price from string to number
+    //     if (typeof game.price === 'string') {
+    //       const gamePrice = parseInt(game.price);
+    //       gameRef.update({
+    //         price: gamePrice
+    //       })
+    //     }
 
-        // averages owner value and converts to number
-        if (typeof game.owners === 'string') {
-          const oldOwners = (game.owners).split(" .. ");
-          const owners1 = oldOwners[0].replace(/,/g, '');
-          const owners2 = oldOwners[1].replace(/,/g, '');
-          const newOwners = (parseInt(owners1) + parseInt(owners2)) / 2;
+    //     // averages owner value and converts to number
+    //     if (typeof game.owners === 'string') {
+    //       const oldOwners = (game.owners).split(" .. ");
+    //       const owners1 = oldOwners[0].replace(/,/g, '');
+    //       const owners2 = oldOwners[1].replace(/,/g, '');
+    //       const newOwners = (parseInt(owners1) + parseInt(owners2)) / 2;
 
-          gameRef.update({
-            owners: newOwners
-          })
-        }
-      }
-    }) 
+    //       gameRef.update({
+    //         owners: newOwners
+    //       })
+    //     }
+    //   }
+    // }) 
     
     // testing to convert owners string to numbers
     // test.once('value', snapshot => {
@@ -253,7 +253,7 @@ class App extends Component {
       <div className="App">
         <img src={this.state.imageTest} alt=""/>
         <Header /> 
-        {/* <Main /> */}
+        <Main />
         <Footer />
       </div>
     );

@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import firebase from '../../firebase';
 
 class Carts extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     data: 0
-  //   }
-  // }
+  constructor() {
+    super();
+    this.state = {
+      games: []
+    }
+  }
 
   // loop over all games in database and check to see if onWishlist is true
   componentDidMount() {
@@ -22,7 +22,16 @@ class Carts extends Component {
 
 
     wishlistRef.on('value', snapshot => {
-      console.log(snapshot.val());
+      // console.log(snapshot.val());
+      const dataObj = snapshot.val();
+      const gameList = [];
+      for (const gameKey in dataObj) {
+        // console.log(dataObj[gameKey]);
+        gameList.push(dataObj[gameKey]);
+        this.setState({
+          games: gameList
+        })
+      }
     })
 
 
@@ -46,6 +55,17 @@ class Carts extends Component {
     // console.log(this.props.wishlist);
     return (
       <div>
+        {
+          this.state.games.map(game => {
+            return (
+              <div className="game" key={game[0]}>
+                <h4>{game[1]}</h4>
+                <p>{game[2]}</p>
+                <button onClick={() => this.props.removeFromWishlist(game[0])}>Remove</button>
+              </div>
+            )
+          })
+        }
         {/* {
           this.props.wishlist[0]
             ? <p>yup works</p>

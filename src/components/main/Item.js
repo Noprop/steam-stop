@@ -7,7 +7,7 @@ const Item = ({ game, dbKey, addToWishlist }) => {
       <p>{name}</p>
       <p>{owners} owners</p>
       <p>{price / 100} in US dollars</p>
-      <button onClick={() => addToWishlist(dbKey)}>Click MEEE</button>
+      <button onClick={() => addToWishlist(dbKey, game)}>Click MEEE</button>
     </div>
   )
 }

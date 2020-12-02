@@ -9,7 +9,7 @@ class Header extends Component {
       <header>
         <nav>
           <Navigation />
-          <Carts />
+          <Carts removeFromWishlist={this.props.removeFromWishlist}/>
         </nav>
         <Banner />
       </header>

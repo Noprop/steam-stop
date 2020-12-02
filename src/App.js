@@ -277,13 +277,16 @@ class App extends Component {
     })
   }
 
-  addToWishlist = (dbKey) => {
+  addToWishlist = (dbKey, game) => {
     const wishlistRef = firebase.database().ref('wishlist');
     const gameRef = firebase.database().ref('gameList/').child(dbKey); // find the game
-    gameRef.once('value', snapshot => {
-      const dataVal = snapshot.val(); // find the data object for the game
-      const onWishlist = dataVal.onWishlist; // find the onWishlist value
+    // gameRef.once('value', snapshot => {
+      // const dataVal = snapshot.val(); // find the data object for the game
+      // const onWishlist = dataVal.onWishlist; // find the onWishlist value
       // console.log(onWishlist);
+
+      const { name, price, onWishlist } = game;
+
       if (onWishlist === false) {
         // const wishlistDisplay = [];
         // wishlistDisplay.push(dataVal.name);
@@ -295,7 +298,11 @@ class App extends Component {
         // ]);
 
         const wishlistObj = {
-          [dbKey]: dbKey
+          [dbKey]: [
+            dbKey,
+            name,
+            price
+          ]
         }
         wishlistRef.update(wishlistObj);
         
@@ -311,7 +318,19 @@ class App extends Component {
       } else {
         console.log('yo homie u already clicked it')
       }
+    // })
+  }
+
+  removeFromWishlist = (dbKey) => {
+    console.log('remove works', dbKey);
+    // might be a more efficient method below
+    const gameListRef = firebase.database().ref('gameList/' + dbKey);
+    const wishlistRef = firebase.database().ref('wishlist/' + dbKey);
+
+    gameListRef.update({
+      onWishlist: false
     })
+    wishlistRef.set({});
   }
 
   render() {
@@ -319,7 +338,7 @@ class App extends Component {
     // console.log('state value:', this.state.games);
     return (
       <div className="App">
-        <Header /> 
+        <Header removeFromWishlist={this.removeFromWishlist} /> 
         {/* {
           this.state.wishlist.length === 0
             ? null

@@ -1,7 +1,8 @@
-/* * {
+* {
   margin: 0;
   padding: 0;
-} */
+  text-align: center;
+}
 html {
   font-size: 62.5%;
 }
@@ -31,21 +32,41 @@ h2 {
 ul {
   list-style: none;
 }
-a {
-  text-decoration: none;
-  color: inherit;
-  padding-right: 20px;
-}
 
 
 .navigation {
   display: flex;
-
+  align-items: center;
 }
 
 nav {
+  height: 64px;
   display: flex;
   justify-content: space-between;
+}
+nav a {
+  text-decoration: none;
+  color: inherit;
+  margin-left: 14px;
+  padding: 8px 14px;
+  position: relative;
+}
+nav li:nth-child(1) {
+  margin-left: 14px;
+}
+/* cool hover effect on the a tags, idea from here: https://codepen.io/martinwolf/pen/eNNdme */
+nav a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #222831;
+  transition: width .3s;
+}
+nav a:hover::before {
+  width: 100%;
 }
 .banner {
   min-height: 500px;
@@ -65,38 +86,6 @@ nav {
   margin: 0 auto;
   flex-direction: column;
 }
-/* .filters {
-  width: calc(25% - 10px);
-}
-.content {
-  width: calc(75% - 10px)
-} */
-.gamesOutput {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.item {
-  /* background-color: #393e46; */
-  background-color: #393e46;
-  max-width: 460px;
-  width: calc((100% / 3) - 20px);
-  margin-bottom: 20px;
-  color: white;
-  border-radius: 8px;
-  /* border: 3px solid #ffa62b; */
-}
-.search {
-  width: calc((100% / 3) - 20px);
-  max-width: 460px;
-}
-.item img {
-  max-width: 100%;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-}
-
-
 
 header nav {
   position: relative;
@@ -109,8 +98,8 @@ header nav {
   position: absolute;
   height: 36px;
   width: 36px;
-  top: 18px;
-  right: 18px;
+  top: 14px;
+  right: 14px;
 }
 .wishlistContainer .fa-heart {
   color: #222831;
@@ -128,13 +117,14 @@ header nav {
   top: 0;
   right: 0;
   color: white;
-  height: 100vh;
+  height: calc(100vh - 30px); /* to account for padding on top */
   width: 50vw;
-  max-height: 100vh;
+  max-height: calc(100vh - 30px);
   max-width: 50vw;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding-top: 20px;
+  /* padding-top: 20px; */
+  padding-top: 30px;
   overflow-y: scroll;
   
 }
@@ -211,20 +201,35 @@ header nav {
   height: 0px;
 }
 
-
-.App {
-  text-align: center;
-}
-
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
+
+/* main content section */
+.gamesOutput {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+/* item is each game that is rendered */
+.item {
+  /* background-color: #393e46; */
+  background-color: #393e46;
+  max-width: 460px;
+  width: calc((100% / 3) - 20px);
+  margin-bottom: 20px;
+  color: white;
+  border-radius: 8px;
+  /* border: 3px solid #ffa62b; */
+}
+.search {
+  width: calc((100% / 3) - 20px);
+  max-width: 460px;
+}
+.item img {
+  max-width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
 

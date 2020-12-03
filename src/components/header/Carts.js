@@ -61,6 +61,7 @@ class Carts extends Component {
           icon="heart" 
           onClick={() => this.displayWishlist()} 
           className={`${this.state.display ? "hidden" : ""}`}
+          aria-label="Wishlist"
         />
         <div className={`${this.state.display ? "displayWishlist" : "hidden"}`}>
           <FontAwesomeIcon icon="times" onClick={() => this.displayWishlist()} />
@@ -73,8 +74,7 @@ class Carts extends Component {
                       <div className="logoContainer">
                         <img src={game[3]} alt={`Logo of ${game[1]}`} />
                       </div>
-                      <p>Price: {game[2]}</p>
-                      {/* <h4>{game[1]}</h4> */}
+                      <p>Price: ${game[2] / 100}</p>
                     </div>
                     <FontAwesomeIcon icon="trash" onClick={() => this.removeFromWishlist(game[0])} />
                   </div>

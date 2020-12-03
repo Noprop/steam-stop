@@ -9,6 +9,7 @@ body {
   font-family: "Rubik", sans-serif;
   line-height: 1.4;
   font-size: 2rem;
+  background-color: #eee;
 }
 /* header,
 section {
@@ -47,14 +48,17 @@ nav {
   justify-content: space-between;
 }
 .banner {
-  min-height: 200px;
-  background-color: goldenrod;
+  min-height: 500px;
+  background-image: url('./assets/ien0xfioljw41.png');
+  background-position: center;
+  background-size: 58%;
+  /* background-repeat: no-repeat; */
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
 }
-/* images are 460 x 215 base size */
+/* header images are 460 x 215 base size */
 .main { 
   display: flex;
   width: 95%;
@@ -73,10 +77,14 @@ nav {
   flex-wrap: wrap;
 }
 .item {
-  background-color: #eeee;
+  /* background-color: #393e46; */
+  background-color: #393e46;
   max-width: 460px;
   width: calc((100% / 3) - 20px);
   margin-bottom: 20px;
+  color: white;
+  border-radius: 8px;
+  /* border: 3px solid #ffa62b; */
 }
 .search {
   width: calc((100% / 3) - 20px);
@@ -84,19 +92,80 @@ nav {
 }
 .item img {
   max-width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
+
 
 
 header nav {
   position: relative;
 }
+.wishlistContainer {
+  background-color: white;
+}
+.wishlistContainer .fa-heart,
+.wishlistContainer .fa-times {
+  position: absolute;
+  height: 36px;
+  width: 36px;
+  top: 18px;
+  right: 18px;
+}
+.wishlistContainer .fa-heart {
+  color: #222831;
+}
+.wishlistContainer .hidden {
+  display: none;
+}
 
 .wishlistContainer svg {
+  cursor: pointer;
+}
+.displayWishlist {
+  background-color: #222831;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  height: 100vh;
+  width: 50vw;
+  max-height: 100vh;
+  max-width: 50vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 20px;
+  overflow-y: scroll;
+  
+}
+.gameContainer .logoContainer {
+  min-height: 175px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gameContainer {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ffd369;
+}
+.gameContainer img {
+  width: 80%;
+  
+}
+
+
+
+
+
+/* .wishlistContainer svg {
   cursor: pointer;
 }
 .wishlistContainer svg,
 .wishlistContainer {
   color: white;
+}
+.wishlistContainer .heartIcon {
+  color: #222831;
 }
 .wishlistContainer {
   position: absolute;
@@ -112,7 +181,6 @@ header nav {
   width: 100%;
 }
 .displayWishlist .game {
-  /* margin: 20px auto; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -130,7 +198,7 @@ header nav {
 .displayWishlist .logoContainer img {
   height: 80%;
   width: 80%;
-}
+} */
 
 /* .displayWishlist .game svg {
   flex-grow: 0;

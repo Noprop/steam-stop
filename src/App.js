@@ -3,7 +3,7 @@ import { Component } from 'react';
 import firebase from './firebase';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import { faList, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 // import Qs from 'qs';
 
@@ -12,7 +12,7 @@ import Header from './components/header/Header';
 import Main from './components/main/Main';
 import Footer from './components/Footer';
 
-library.add(fab, faShoppingCart, faList);
+library.add(fab, faHeart, faTimes, faTrash);
 
 class App extends Component {
   constructor() {
@@ -285,7 +285,7 @@ class App extends Component {
       // const onWishlist = dataVal.onWishlist; // find the onWishlist value
       // console.log(onWishlist);
 
-      const { name, price, onWishlist } = game;
+      const { name, price, onWishlist, logo_img } = game;
 
       if (onWishlist === false) {
         // const wishlistDisplay = [];
@@ -301,7 +301,8 @@ class App extends Component {
           [dbKey]: [
             dbKey,
             name,
-            price
+            price,
+            logo_img
           ]
         }
         wishlistRef.update(wishlistObj);
@@ -321,24 +322,12 @@ class App extends Component {
     // })
   }
 
-  removeFromWishlist = (dbKey) => {
-    console.log('remove works', dbKey);
-    // might be a more efficient method below
-    const gameListRef = firebase.database().ref('gameList/' + dbKey);
-    const wishlistRef = firebase.database().ref('wishlist/' + dbKey);
-
-    gameListRef.update({
-      onWishlist: false
-    })
-    wishlistRef.set({});
-  }
-
   render() {
     // console.log(this.state.wishlist); wishlist={this.state.wishlist}
     // console.log('state value:', this.state.games);
     return (
       <div className="App">
-        <Header removeFromWishlist={this.removeFromWishlist} /> 
+        <Header /> 
         {/* {
           this.state.wishlist.length === 0
             ? null

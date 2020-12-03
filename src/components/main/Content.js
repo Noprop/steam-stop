@@ -14,7 +14,7 @@ class Content extends Component {
 
   componentDidMount() {
     // set db ref to gamesList
-    const gameListRef = firebase.database().ref('gameList/').limitToFirst(8);
+    const gameListRef = firebase.database().ref('gameList/').limitToLast(30);
     // const gameListRef = firebase.database().ref('gameList').orderByChild('price');
 
     // iterate over database where price does not equal 0 
@@ -24,7 +24,7 @@ class Content extends Component {
       snapshot.forEach(childSnapshot => {
         const childKey = childSnapshot.key;
         const childData = childSnapshot.val();
-        if (childData.price >= 0) {
+        if (childData.price > 0) {
           usefulGames.push([childKey, childData]);
         }
       })
@@ -55,6 +55,9 @@ class Content extends Component {
     return (
       <div className="content">
         <div className="gamesOutput">
+          <div className="search">
+            <input type="text" />
+          </div>
           {
             this.state.outputGamesArray.map(game => {
               return (

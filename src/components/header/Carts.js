@@ -7,23 +7,24 @@ class Carts extends Component {
   constructor() {
     super();
     this.state = {
+      display: false,
       games: []
     }
   }
 
-  // loop over all games in database and check to see if onWishlist is true
+  // check wishlist object on database and add any values to state and then display in render method
   componentDidMount() {
-    // if (this.props.wishlist !== []) {
-      
-    // }
-    // const gameId = "-MNMI5byrhw7-6z6kIk2";
-    // const gameId = this.props.wishlist[0];
     const wishlistRef = firebase.database().ref('wishlist');
-
 
     wishlistRef.on('value', snapshot => {
       // console.log(snapshot.val());
       const dataObj = snapshot.val();
+      // console.log(dataObj);
+      if (dataObj === null) {
+        this.setState({
+          games: 0
+        })
+      }
       const gameList = [];
       for (const gameKey in dataObj) {
         // console.log(dataObj[gameKey]);
@@ -33,53 +34,55 @@ class Carts extends Component {
         })
       }
     })
+  }
 
+  removeFromWishlist = (dbKey) => {
+    console.log('remove works', dbKey);
+    // might be a more efficient method below
+    const gameListRef = firebase.database().ref('gameList/' + dbKey);
+    const wishlistRef = firebase.database().ref('wishlist/' + dbKey);
+    gameListRef.update({
+      onWishlist: false
+    })
+    wishlistRef.set({});
+  }
 
-
-    // const gameRef = firebase.database().ref('gameList/' + gameId);
-
-    // gameRef.once('value', snapshot => {
-    //   console.log(snapshot.val());
-    // })
-    // gameRef.once('value', snapshot => {
-    //   // console.log(snapshot.val());
-    //   const dataVal = snapshot.val();
-    //   console.log(dataVal);
-    //   // this.setState({
-    //   //   data: dataVal
-    //   // })
-    // })
+  displayWishlist = () => {
+    this.setState({
+      display: !this.state.display
+    })
   }
 
   render() {
-    // console.log(this.props.wishlist);
+    // console.log(this.state);
     return (
-      <div>
-        {
-          this.state.games.map(game => {
-            return (
-              <div className="game" key={game[0]}>
-                <h4>{game[1]}</h4>
-                <p>{game[2]}</p>
-                <button onClick={() => this.props.removeFromWishlist(game[0])}>Remove</button>
-              </div>
-            )
-          })
-        }
-        {/* {
-          this.props.wishlist[0]
-            ? <p>yup works</p>
-            : <p>nope doesn't work</p>
-        } */}
-        {/* {
-          this.props.wishlist.map(item => {
-            return (
-              <p key={item[0]} >{item[0]}</p>
-            )
-          })
-        } */}
-        <FontAwesomeIcon icon="list" />
-        <FontAwesomeIcon icon="shopping-cart" />
+      <div className="wishlistContainer">
+        <FontAwesomeIcon 
+          icon="heart" 
+          onClick={() => this.displayWishlist()} 
+          className={`${this.state.display ? "hidden" : ""}`}
+        />
+        <div className={`${this.state.display ? "displayWishlist" : "hidden"}`}>
+          <FontAwesomeIcon icon="times" onClick={() => this.displayWishlist()} />
+          {
+            this.state.games !== 0
+              ? this.state.games.map(game => {
+                return (
+                  <div className="gameContainer">
+                    <div className="game" key={game[0]}>
+                      <div className="logoContainer">
+                        <img src={game[3]} alt={`Logo of ${game[1]}`} />
+                      </div>
+                      <p>Price: {game[2]}</p>
+                      {/* <h4>{game[1]}</h4> */}
+                    </div>
+                    <FontAwesomeIcon icon="trash" onClick={() => this.removeFromWishlist(game[0])} />
+                  </div>
+                )
+              })
+              : null
+          }
+        </div>
       </div>
     )
   }

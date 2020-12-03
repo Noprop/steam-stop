@@ -6,7 +6,7 @@ class Main extends Component {
   render() {
     return (
       <section className="main">
-        <Search />
+        {/* <Search /> */}
         <Content addToWishlist={this.props.addToWishlist}/>
       </section>
     )

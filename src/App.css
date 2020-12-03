@@ -13,13 +13,14 @@ body {
 /* header,
 section {
   min-height: 100vh;
-}
-img {
+} */
+/* img {
   width: 100%;
   height: auto;
   display: block;
-}
-fieldset {
+} */
+
+/* fieldset {
   border: 0;
 }
 h2 {
@@ -77,11 +78,70 @@ nav {
   width: calc((100% / 3) - 20px);
   margin-bottom: 20px;
 }
+.search {
+  width: calc((100% / 3) - 20px);
+  max-width: 460px;
+}
 .item img {
   max-width: 100%;
 }
 
 
+header nav {
+  position: relative;
+}
+
+.wishlistContainer svg {
+  cursor: pointer;
+}
+.wishlistContainer svg,
+.wishlistContainer {
+  color: white;
+}
+.wishlistContainer {
+  position: absolute;
+  right: 0;
+  width: 50%;
+  background-color: #222831;
+}
+.displayWishlist {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.displayWishlist .gameContainer {
+  width: 100%;
+}
+.displayWishlist .game {
+  /* margin: 20px auto; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  padding: 5%;
+}
+.displayWishlist .logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+  min-width: 100%;
+}
+.displayWishlist .logoContainer img {
+  height: 80%;
+  width: 80%;
+}
+
+/* .displayWishlist .game svg {
+  flex-grow: 0;
+} */
+/* .displayWishlist img {
+  max-width: 200px;
+} */
+.hidden {
+  display: none;
+  height: 0px;
+}
 
 
 .App {

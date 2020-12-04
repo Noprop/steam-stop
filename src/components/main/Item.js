@@ -1,8 +1,8 @@
 const Item = ({ game, dbKey, addToWishlist }) => {
   const { name, owners, price, header_img } = game;
 
+  // convert to string with commas for better readability 
   let ownerArray = (owners.toString()).split("");
-
   for (let i = ownerArray.length - 3; i > 0; i -= 3) {
     ownerArray.splice(i, 0, ",");
   }

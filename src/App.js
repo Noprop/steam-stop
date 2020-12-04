@@ -30,9 +30,11 @@ class App extends Component {
     // load any items on the wishlist onto state 
     wishlistRef.once('value', snapshot => {
       const data = snapshot.val();
-      this.setState({
-        wishlist: data
-      })
+      if (data) {
+        this.setState({
+          wishlist: data
+        })
+      }
     })
 
 
@@ -281,45 +283,48 @@ class App extends Component {
   }
 
   addToWishlist = (dbKey, game) => {
+    if (this.state.wishlist) { // check state to see if on wishlist
+      if (this.state.wishlist[dbKey]) {
+        alert('Already on wishlist!');
+        return;
+      }
+    } 
+    // find references to update
     const wishlistRef = firebase.database().ref('wishlist');
-    const gameRef = firebase.database().ref(`gameList/${dbKey}/onWishlist`); // find the game
+    const gameRef = firebase.database().ref(`gameList/${dbKey}/onWishlist`);
 
     const { name, price, logo_img } = game;
 
-    if (this.state.wishlist[dbKey]) {
-      alert('Already on wishlist!');
-      console.log('on wishlist');
-    } else {
-      const wishlistObj = {
-        [dbKey]: [
-          dbKey,
-          name,
-          price,
-          logo_img
-        ]
-      }
-      wishlistRef.update(wishlistObj);
-      gameRef.update({
-        onWishlist: true
-      })
-      console.log('old state: ', this.state);
-      const stateWishlist = this.state.wishlist;
-      stateWishlist[dbKey] = wishlistObj;
-      this.setState({
-        wishlist: stateWishlist
-      })
-      console.log('new state: ', this.state);
-    } 
+    const wishlistObj = {
+      [dbKey]: [
+        dbKey,
+        name,
+        price,
+        logo_img
+      ]
+    }
+    // update db
+    wishlistRef.update(wishlistObj);
+    gameRef.update({
+      onWishlist: true
+    })
+
+    // update state
+    const stateWishlist = this.state.wishlist;
+    stateWishlist[dbKey] = wishlistObj;
+    this.setState({
+      wishlist: stateWishlist
+    })
   }
 
   removeFromWishlist = (dbKey) => {
+    // get both references and state
     const gameListRef = firebase.database().ref('gameList/' + dbKey);
     const wishlistRef = firebase.database().ref('wishlist/' + dbKey);
-
-    console.log('before delete, ', this.state.wishlist);
     const stateWishlist = this.state.wishlist;
+    
+    // change, replace, or delete the three locations
     delete stateWishlist[dbKey];
-
     this.setState({
       wishlist: stateWishlist
     })
@@ -327,7 +332,6 @@ class App extends Component {
       onWishlist: false
     })
     wishlistRef.set({});
-    console.log('after delete ', this.state.wishlist);
   }
 
   render() {

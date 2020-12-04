@@ -12,29 +12,22 @@ body {
   font-size: 2rem;
   background-color: #eee;
 }
-/* header,
-section {
-  min-height: 100vh;
-} */
-/* img {
-  width: 100%;
-  height: auto;
-  display: block;
-} */
 ul {
   list-style: none;
 }
 
-
-.navigation {
-  display: flex;
-  align-items: center;
-}
-
+/* all header and wishlist styling */
 nav {
   height: 64px;
   display: flex;
   justify-content: space-between;
+  max-width: 1600px;
+  margin: 0 auto;
+  position: relative;
+}
+.navigation {
+  display: flex;
+  align-items: center;
 }
 nav a {
   text-decoration: none;
@@ -71,17 +64,6 @@ nav a:hover::before {
   align-items: center;
   margin-bottom: 30px;
 }
-/* header images are 460 x 215 base size */
-main { 
-  display: flex;
-  width: 95%;
-  margin: 0 auto;
-  flex-direction: column;
-}
-
-header nav {
-  position: relative;
-}
 .wishlistContainer {
   background-color: white;
 }
@@ -96,10 +78,10 @@ header nav {
 .wishlistContainer .fa-heart {
   color: #222831;
 }
-.wishlistContainer .hidden {
+/* hidden class is added/removed on button click */
+.wishlistContainer .hidden { 
   display: none;
 }
-
 .wishlistContainer svg {
   cursor: pointer;
 }
@@ -118,7 +100,6 @@ header nav {
   padding-top: 30px;
   overflow-y: scroll;
   z-index: 100;
-  
 }
 .gameContainer .logoContainer {
   min-height: 175px;
@@ -142,23 +123,49 @@ header nav {
   height: 0px;
 }
 
-.App-header {
-  /* TODO: delete this as long as we don't need this colour */
-  background-color: #282c34;
-}
 
-
-/* main content section */
-.gamesOutput {
+/* MAIN content section */
+main { 
   display: flex;
-  flex-wrap: wrap;
+  width: 95%;
+  margin: 0 auto;
+  flex-direction: column;
+  max-width: 1600px;
 }
-/* selects all middle games */
-.gamesOutput .item:nth-child(3n+2) {
-  margin-right: 2.5%;
-  margin-left: 2.5%;
+.gamesOutput {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 50px;
 }
-/* all buttons */
+.item, .search {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 460px;
+}
+/* item is each game that is rendered */
+.item {
+  background-color: #393e46;
+  margin-bottom: 30px;
+  color: white;
+  border-radius: 8px;
+  position: relative;
+  height: 450px;
+}
+.item .title {
+  color: #ffd369;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.item p:nth-child(3) {
+  margin-bottom: 10px;
+}
+.item img {
+  max-width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
 main button {
   font-size: 2rem;
   padding: 8px 8px;
@@ -167,12 +174,10 @@ main button {
   border-radius: 2px;
 }
 /* Add to wishlist button */
-/* Hover effect from here: https://ianlunn.github.io/Hover */
 .gamesOutput button {
   margin: 30px 20px 20px 20px;
   width: 60%;
   background-color: #eee; 
-  /* border: 4px solid #eee; */
 }
 .gamesOutput button:hover {
   transform: scale(1.1);
@@ -187,38 +192,6 @@ main .loadMore {
 main .loadMore:hover {
   background: #222831;
   color: #eee;
-}
-/* item is each game that is rendered */
-.item {
-  /* background-color: #393e46; */
-  background-color: #393e46;
-  max-width: 460px;
-  width: calc((100% / 3) - 20px);
-  margin-bottom: 20px;
-  color: white;
-  border-radius: 8px;
-  /* border: 3px solid #ffa62b; */
-  position: relative;
-  height: 400px;
-}
-.item .title {
-  color: #ffd369;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.item p:nth-child(3) {
-  margin-bottom: 10px;
-}
-.search {
-  width: calc((100% / 3) - 20px);
-  max-width: 460px;
-}
-.item img {
-  max-width: 100%;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
 }
 footer {
   background-color: #222831;

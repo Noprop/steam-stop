@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import Item from '../main/Item';
 import firebase from '../../firebase';
 
-class Carts extends Component {
+class Wishlist extends Component {
   constructor() {
     super();
     this.state = {
@@ -77,4 +77,4 @@ class Carts extends Component {
   }
 }
 
-export default Carts;
+export default Wishlist;

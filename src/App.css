@@ -54,11 +54,10 @@ nav a:hover::before {
   width: 100%;
 }
 .banner {
-  min-height: 500px;
-  background-image: url('./assets/ien0xfioljw41.png');
+  height: 500px;
+  background-image: url('./assets/steamheader.png');
   background-position: center;
   background-size: 58%;
-  /* background-repeat: no-repeat; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -106,13 +105,17 @@ nav a:hover::before {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 }
 .gameContainer {
   padding-bottom: 10px;
   border-bottom: 2px solid #ffd369;
+  max-height: 300px;
 }
 .gameContainer .fa-trash {
   padding-top: 20px;
+  width: 36px;
+  height: 36px;
 }
 .gameContainer img {
   width: 80%;
@@ -208,4 +211,49 @@ footer {
   background-color: #222831;
   color: #eee;
   padding: 12px 0;
+}
+
+
+@media(max-width: 1000px) {
+  .banner {
+    height: 380px;
+    /* background-repeat: no-repeat; */
+  }
+}
+
+@media(max-width: 768px) {
+  .banner {
+    height: 250px;
+  }
+  .gamesOutput {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 25px;
+  }
+}
+
+@media(max-width: 480px) {
+  .banner {
+    height: 150px;
+  }
+  nav a {
+    margin-left: 8px;
+    padding: 4px 10px;
+  }
+  .displayWishlist {
+    width: 80vw;
+    max-width: 80vw;
+    grid-template-columns: 1fr;
+  }
+  .gameContainer .logoContainer {
+    min-height: 100px;
+    max-height: 180px;
+    margin-bottom: 50px;
+  }
+  .gamesOutput {
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+  }
+  .search label:nth-child(1) {
+    padding-top: 20px;
+  }
 }

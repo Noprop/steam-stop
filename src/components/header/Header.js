@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import Navigation from './Navigation';
-import Carts from './Carts';
+import Wishlist from './Wishlist';
 import Banner from './Banner';
 
 class Header extends Component {
@@ -9,7 +9,7 @@ class Header extends Component {
       <header>
         <nav>
           <Navigation />
-          <Carts removeFromWishlist={this.props.removeFromWishlist} />
+          <Wishlist removeFromWishlist={this.props.removeFromWishlist} />
         </nav>
         <Banner />
       </header>

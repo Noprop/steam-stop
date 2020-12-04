@@ -217,7 +217,6 @@ footer {
 @media(max-width: 1000px) {
   .banner {
     height: 380px;
-    /* background-repeat: no-repeat; */
   }
 }
 

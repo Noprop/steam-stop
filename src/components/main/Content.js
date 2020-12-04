@@ -37,7 +37,7 @@ class Content extends Component {
       const gameListRef = firebase.database().ref('gameList/').orderByChild('owners');
       this.findGames(gameListRef, filter.freeGames);
     } else if (filter.sortBy === "price") {
-      const gameListRef = firebase.database().ref('gameList/').orderByChild('owners');
+      const gameListRef = firebase.database().ref('gameList/').orderByChild('price');
       this.findGames(gameListRef, filter.freeGames);
     }
   }

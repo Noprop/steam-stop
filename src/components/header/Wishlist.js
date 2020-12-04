@@ -69,7 +69,7 @@ class Wishlist extends Component {
                   </div>
                 )
               })
-              : <h4>Add some games to the wishlist!</h4>
+              : <h4>Add some games to the wish list!</h4>
           }
         </div>
       </div>

@@ -314,6 +314,9 @@ footer {
   .banner {
     height: 380px;
   }
+  form label:nth-child(3) .checkmark {
+    left: 25px;
+  }
 }
 
 @media(max-width: 768px) {
@@ -327,6 +330,9 @@ footer {
   .displayWishlist {
     grid-template-columns: 1fr;
   }
+  form label:nth-child(3) .checkmark {
+    left: 2px;
+  }
 }
 
 @media(max-width: 480px) {
@@ -336,6 +342,12 @@ footer {
   nav a {
     margin-left: 8px;
     padding: 4px 10px;
+  }
+  form label:nth-child(1) .newRadio {
+    top: 20px;
+  }
+  form label:nth-child(3) .checkmark {
+    left: 0;
   }
   .displayWishlist {
     width: 80vw;

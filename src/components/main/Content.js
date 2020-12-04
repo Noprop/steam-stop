@@ -9,35 +9,15 @@ class Content extends Component {
     this.state = {
       games: [],
       outputGamesArray: [], 
-      howManyGames: 9
+      howManyGames: 9,
+      filterGames: {}
     }
   }
 
   componentDidMount() {
     // set db ref to gamesList
-    const gameListRef = firebase.database().ref('gameList/').limitToLast(30);
-    // const gameListRef = firebase.database().ref('gameList').orderByChild('price');
-
-    // iterate over database where price does not equal 0 
-    gameListRef.once('value', snapshot => {
-      let usefulGames = [];
-      // console.log(snapshot.val());
-      snapshot.forEach(childSnapshot => {
-        const childKey = childSnapshot.key;
-        const childData = childSnapshot.val();
-        if (childData.price > 0) {
-          usefulGames.push([childKey, childData]);
-        }
-      })
-      // "games" hold all games that are retrieved from database currently.
-      // outputGamesArray only holds the ones that are actually displayed
-      this.setState({
-        games: usefulGames
-      })
-      this.setState({
-        outputGamesArray: usefulGames.slice(0, 8)
-      })
-    });
+    const gameListRef = firebase.database().ref('gameList/');
+    this.findGames(gameListRef, false);
   }
 
   // functionality for Load More button
@@ -52,11 +32,52 @@ class Content extends Component {
     })
   }
 
+  handleFilterGames = filter => {
+    if (filter.sortBy === "owners") {
+      const gameListRef = firebase.database().ref('gameList/').orderByChild('owners');
+      this.findGames(gameListRef, filter.freeGames);
+    } else if (filter.sortBy === "price") {
+      const gameListRef = firebase.database().ref('gameList/').orderByChild('owners');
+      this.findGames(gameListRef, filter.freeGames);
+    }
+  }
+
+  findGames = (gameListRef, includeFreeGames) => { 
+    gameListRef.once('value', snapshot => {
+      let gamesToState = [];
+      
+      if (includeFreeGames) {
+        snapshot.forEach(childSnapshot => {
+          const childKey = childSnapshot.key;
+          const childData = childSnapshot.val();
+          gamesToState.push([childKey, childData]);   
+        })    
+      } else {
+        snapshot.forEach(childSnapshot => {
+          const childKey = childSnapshot.key;
+          const childData = childSnapshot.val();
+          if (childData.price > 0) {
+            gamesToState.push([childKey, childData]);
+          }
+        })
+      }
+      gamesToState.reverse();
+      // this.state.games holds all the games that have been retrieved from the database
+      // this.state.outputGamesArray only holds the ones that are actually displayed
+      this.setState({
+        games: gamesToState
+      })
+      this.setState({
+        outputGamesArray: gamesToState.slice(0, 8)
+      })
+    });
+  }
+
   render() {
     return (
       <main>
         <section className="gamesOutput">
-          <Search />
+          <Search handleFilterGames={this.handleFilterGames} />
           {
             this.state.outputGamesArray.map(game => {
               return (

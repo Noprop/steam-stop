@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/greg-forster-project-five/static/css/main.2658c117.chunk.css",
+    "main.css": "/greg-forster-project-five/static/css/main.429723ae.chunk.css",
     "main.js": "/greg-forster-project-five/static/js/main.aa755411.chunk.js",
     "main.js.map": "/greg-forster-project-five/static/js/main.aa755411.chunk.js.map",
     "runtime-main.js": "/greg-forster-project-five/static/js/runtime-main.9d661690.js",
@@ -10,14 +10,14 @@
     "static/js/3.4efec4ff.chunk.js": "/greg-forster-project-five/static/js/3.4efec4ff.chunk.js",
     "static/js/3.4efec4ff.chunk.js.map": "/greg-forster-project-five/static/js/3.4efec4ff.chunk.js.map",
     "index.html": "/greg-forster-project-five/index.html",
-    "static/css/main.2658c117.chunk.css.map": "/greg-forster-project-five/static/css/main.2658c117.chunk.css.map",
+    "static/css/main.429723ae.chunk.css.map": "/greg-forster-project-five/static/css/main.429723ae.chunk.css.map",
     "static/js/2.0e102da2.chunk.js.LICENSE.txt": "/greg-forster-project-five/static/js/2.0e102da2.chunk.js.LICENSE.txt",
     "static/media/App.css": "/greg-forster-project-five/static/media/steamheader.2e75b981.png"
   },
   "entrypoints": [
     "static/js/runtime-main.9d661690.js",
     "static/js/2.0e102da2.chunk.js",
-    "static/css/main.2658c117.chunk.css",
+    "static/css/main.429723ae.chunk.css",
     "static/js/main.aa755411.chunk.js"
   ]
 }

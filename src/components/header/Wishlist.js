@@ -17,9 +17,7 @@ class Wishlist extends Component {
     const wishlistRef = firebase.database().ref('wishlist');
 
     wishlistRef.on('value', snapshot => {
-      // console.log(snapshot.val());
       const dataObj = snapshot.val();
-      // console.log(dataObj);
       if (dataObj === null) {
         this.setState({
           games: 0
@@ -27,7 +25,6 @@ class Wishlist extends Component {
       }
       const gameList = [];
       for (const gameKey in dataObj) {
-        // console.log(dataObj[gameKey]);
         gameList.push(dataObj[gameKey]);
         this.setState({
           games: gameList
@@ -43,7 +40,6 @@ class Wishlist extends Component {
   }
 
   render() {
-
     return (
       <div className="wishlistContainer">
         <FontAwesomeIcon 

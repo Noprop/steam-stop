@@ -96,9 +96,7 @@ class App extends Component {
           gameListRef.once('value', snapshot => {
             const data = snapshot.val();
             for (const dbKey in data) {
-              // console.log(data[dbKey]);
               if (data[dbKey].onWishlist === undefined) {
-                console.log("we're in");
                 const gameRef = gameListRef.child(dbKey);
                 gameRef.update({
                   "onWishlist": false

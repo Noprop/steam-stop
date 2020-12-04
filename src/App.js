@@ -9,7 +9,7 @@ import axios from 'axios';
 
 // Components
 import Header from './components/header/Header';
-import Main from './components/main/Main';
+import Content from './components/main/Content';
 import Footer from './components/Footer';
 
 library.add(fab, faHeart, faTimes, faTrash);
@@ -19,18 +19,21 @@ class App extends Component {
     super();
     this.state = {
       games: null,
-      wishlist: []
+      wishlist: {}
     }
   }
 
   componentDidMount() {
     const dbRef = firebase.database().ref();
-    // const wishlistRef = firebase.database().ref('wishlist');
-    // const rere = "reeeeee"
-    // const test = {
-    //   [rere]: "test"
-    // }
-    // wishlistRef.update(test);
+    const wishlistRef = firebase.database().ref('wishlist');
+
+    // load any items on the wishlist onto state 
+    wishlistRef.once('value', snapshot => {
+      const data = snapshot.val();
+      this.setState({
+        wishlist: data
+      })
+    })
 
 
     // dbRef.update({
@@ -279,61 +282,59 @@ class App extends Component {
 
   addToWishlist = (dbKey, game) => {
     const wishlistRef = firebase.database().ref('wishlist');
-    const gameRef = firebase.database().ref('gameList/').child(dbKey); // find the game
-    // gameRef.once('value', snapshot => {
-      // const dataVal = snapshot.val(); // find the data object for the game
-      // const onWishlist = dataVal.onWishlist; // find the onWishlist value
-      // console.log(onWishlist);
+    const gameRef = firebase.database().ref(`gameList/${dbKey}/onWishlist`); // find the game
 
-      const { name, price, onWishlist, logo_img } = game;
+    const { name, price, logo_img } = game;
 
-      if (onWishlist === false) {
-        // const wishlistDisplay = [];
-        // wishlistDisplay.push(dataVal.name);
-        // wishlistDisplay.push(dataVal.logo_img);
-        // wishlistDisplay.push([
-        //   dataVal.initialprice,
-        //   dataVal.price,
-        //   dataVal.discount
-        // ]);
-
-        const wishlistObj = {
-          [dbKey]: [
-            dbKey,
-            name,
-            price,
-            logo_img
-          ]
-        }
-        wishlistRef.update(wishlistObj);
-        
-        // const wishlistState = this.state.wishlist;
-        // wishlistState.push(dbKey);
-        // this.setState({
-        //   wishlist: wishlistState
-        // })
-        gameRef.update({
-          onWishlist: true
-        })
-        // console.log();
-      } else {
-        console.log('yo homie u already clicked it')
+    if (this.state.wishlist[dbKey]) {
+      alert('Already on wishlist!');
+      console.log('on wishlist');
+    } else {
+      const wishlistObj = {
+        [dbKey]: [
+          dbKey,
+          name,
+          price,
+          logo_img
+        ]
       }
-    // })
+      wishlistRef.update(wishlistObj);
+      gameRef.update({
+        onWishlist: true
+      })
+      console.log('old state: ', this.state);
+      const stateWishlist = this.state.wishlist;
+      stateWishlist[dbKey] = wishlistObj;
+      this.setState({
+        wishlist: stateWishlist
+      })
+      console.log('new state: ', this.state);
+    } 
+  }
+
+  removeFromWishlist = (dbKey) => {
+    const gameListRef = firebase.database().ref('gameList/' + dbKey);
+    const wishlistRef = firebase.database().ref('wishlist/' + dbKey);
+
+    console.log('before delete, ', this.state.wishlist);
+    const stateWishlist = this.state.wishlist;
+    delete stateWishlist[dbKey];
+
+    this.setState({
+      wishlist: stateWishlist
+    })
+    gameListRef.update({
+      onWishlist: false
+    })
+    wishlistRef.set({});
+    console.log('after delete ', this.state.wishlist);
   }
 
   render() {
-    // console.log(this.state.wishlist); wishlist={this.state.wishlist}
-    // console.log('state value:', this.state.games);
     return (
       <div className="App">
-        <Header /> 
-        {/* {
-          this.state.wishlist.length === 0
-            ? null
-            : <Header wishlist={this.state.wishlist} />
-        } */}
-        <Main addToWishlist={this.addToWishlist} />
+        <Header removeFromWishlist={this.removeFromWishlist} /> 
+        <Content addToWishlist={this.addToWishlist} />
         <Footer />
       </div>
     );

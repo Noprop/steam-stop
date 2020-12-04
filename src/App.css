@@ -21,14 +21,6 @@ section {
   height: auto;
   display: block;
 } */
-
-/* fieldset {
-  border: 0;
-}
-h2 {
-  margin: 0 0 15px 0;
-  text-transform: uppercase;
-} */
 ul {
   list-style: none;
 }
@@ -80,7 +72,7 @@ nav a:hover::before {
   margin-bottom: 30px;
 }
 /* header images are 460 x 215 base size */
-.main { 
+main { 
   display: flex;
   width: 95%;
   margin: 0 auto;
@@ -123,9 +115,9 @@ header nav {
   max-width: 50vw;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* padding-top: 20px; */
   padding-top: 30px;
   overflow-y: scroll;
+  z-index: 100;
   
 }
 .gameContainer .logoContainer {
@@ -138,70 +130,20 @@ header nav {
   padding-bottom: 10px;
   border-bottom: 2px solid #ffd369;
 }
+.gameContainer .fa-trash {
+  padding-top: 20px;
+}
 .gameContainer img {
   width: 80%;
   
 }
-
-
-
-
-
-/* .wishlistContainer svg {
-  cursor: pointer;
-}
-.wishlistContainer svg,
-.wishlistContainer {
-  color: white;
-}
-.wishlistContainer .heartIcon {
-  color: #222831;
-}
-.wishlistContainer {
-  position: absolute;
-  right: 0;
-  width: 50%;
-  background-color: #222831;
-}
-.displayWishlist {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.displayWishlist .gameContainer {
-  width: 100%;
-}
-.displayWishlist .game {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-  padding: 5%;
-}
-.displayWishlist .logoContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 150px;
-  min-width: 100%;
-}
-.displayWishlist .logoContainer img {
-  height: 80%;
-  width: 80%;
-} */
-
-/* .displayWishlist .game svg {
-  flex-grow: 0;
-} */
-/* .displayWishlist img {
-  max-width: 200px;
-} */
 .hidden {
   display: none;
   height: 0px;
 }
 
 .App-header {
+  /* TODO: delete this as long as we don't need this colour */
   background-color: #282c34;
 }
 
@@ -209,8 +151,42 @@ header nav {
 /* main content section */
 .gamesOutput {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+}
+/* selects all middle games */
+.gamesOutput .item:nth-child(3n+2) {
+  margin-right: 2.5%;
+  margin-left: 2.5%;
+}
+/* all buttons */
+main button {
+  font-size: 2rem;
+  padding: 8px 8px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 2px;
+}
+/* Add to wishlist button */
+/* Hover effect from here: https://ianlunn.github.io/Hover */
+.gamesOutput button {
+  margin: 30px 20px 20px 20px;
+  width: 60%;
+  background-color: #eee; 
+  /* border: 4px solid #eee; */
+}
+.gamesOutput button:hover {
+  transform: scale(1.1);
+}
+/* Load More button */
+main .loadMore {
+  width: 180px;
+  margin: 20px auto 40px auto;
+  border: 2px solid #222831;
+  border-radius: 3px;
+}
+main .loadMore:hover {
+  background: #222831;
+  color: #eee;
 }
 /* item is each game that is rendered */
 .item {
@@ -222,6 +198,18 @@ header nav {
   color: white;
   border-radius: 8px;
   /* border: 3px solid #ffa62b; */
+  position: relative;
+  height: 400px;
+}
+.item .title {
+  color: #ffd369;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.item p:nth-child(3) {
+  margin-bottom: 10px;
 }
 .search {
   width: calc((100% / 3) - 20px);
@@ -232,4 +220,8 @@ header nav {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
-
+footer {
+  background-color: #222831;
+  color: #eee;
+  padding: 12px 0;
+}

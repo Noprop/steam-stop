@@ -36,17 +36,6 @@ class Carts extends Component {
     })
   }
 
-  removeFromWishlist = (dbKey) => {
-    console.log('remove works', dbKey);
-    // might be a more efficient method below
-    const gameListRef = firebase.database().ref('gameList/' + dbKey);
-    const wishlistRef = firebase.database().ref('wishlist/' + dbKey);
-    gameListRef.update({
-      onWishlist: false
-    })
-    wishlistRef.set({});
-  }
-
   displayWishlist = () => {
     this.setState({
       display: !this.state.display
@@ -54,7 +43,7 @@ class Carts extends Component {
   }
 
   render() {
-    // console.log(this.state);
+
     return (
       <div className="wishlistContainer">
         <FontAwesomeIcon 
@@ -69,18 +58,18 @@ class Carts extends Component {
             this.state.games !== 0
               ? this.state.games.map(game => {
                 return (
-                  <div className="gameContainer">
-                    <div className="game" key={game[0]}>
+                  <div className="gameContainer" key={game[0]}>
+                    <div className="game">
                       <div className="logoContainer">
                         <img src={game[3]} alt={`Logo of ${game[1]}`} />
                       </div>
                       <p>Price: ${game[2] / 100}</p>
                     </div>
-                    <FontAwesomeIcon icon="trash" onClick={() => this.removeFromWishlist(game[0])} />
+                    <FontAwesomeIcon icon="trash" onClick={() => this.props.removeFromWishlist(game[0])} />
                   </div>
                 )
               })
-              : null
+              : <h4>Add some games to the wishlist!</h4>
           }
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Search from './Search';
 import Item from './Item';
 import firebase from '../../firebase';
 
@@ -53,11 +54,9 @@ class Content extends Component {
 
   render() {
     return (
-      <div className="content">
-        <div className="gamesOutput">
-          <div className="search">
-            <input type="text" />
-          </div>
+      <main>
+        <section className="gamesOutput">
+          <Search />
           {
             this.state.outputGamesArray.map(game => {
               return (
@@ -65,9 +64,9 @@ class Content extends Component {
               ) 
             })
           }
-        </div>
-        <button onClick={this.handleShowMoreGames}>Load More</button>
-      </div>
+        </section>
+        <button className="loadMore" onClick={this.handleShowMoreGames}>Load More</button>
+      </main>
     )
   }
 }
